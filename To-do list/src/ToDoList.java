@@ -14,10 +14,10 @@ public class ToDoList {
 
     public void remove(int index) {
         if (index >=0 && index < items.size()) {
-            items.remove(index);
             System.out.println(items.get(index) + " removed from the list");
+            items.remove(index);
         } else {
-            System.out.println(items.get(index) + " is not in the list");
+            System.out.println("Invalid index. No item deleted.");
         }
     }
 

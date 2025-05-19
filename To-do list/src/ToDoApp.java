@@ -35,6 +35,10 @@ public class ToDoApp {
                     toDoList.add(newItem);
                     break;
                 case "3":
+                    if (toDoList.isEmpty()) {
+                        System.out.println("Your to-do list is empty. Nothing to delete.");
+                        break;
+                    }
                     System.out.print("Enter the number of the item to delete: ");
                     try {
                         int index = Integer.parseInt(sc.nextLine()) - 1;
