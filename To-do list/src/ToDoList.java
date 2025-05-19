@@ -1,3 +1,8 @@
+/*
+ * The ToDoList class houses the main three methods that will be used in the app,
+ * to add, remove, and view items in our to-do list.
+ */
+
 import java.util.*;
 
 public class ToDoList {

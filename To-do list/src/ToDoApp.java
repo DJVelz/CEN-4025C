@@ -1,3 +1,8 @@
+/*
+ * The ToDoApp uses the methods from ToDoList in a menu to allow the user to
+ * create and manage their own to-do list
+ */
+
 import java.util.*;
 
 public class ToDoApp {
@@ -17,6 +22,7 @@ public class ToDoApp {
 
             System.out.println("\nWhat would you like to do? ");
             String choice = sc.nextLine();
+
             switch (choice) {
                 case "1":
                     List<String> items = toDoList.getItems();
@@ -29,11 +35,13 @@ public class ToDoApp {
                         }
                     }
                     break;
+
                 case "2":
                     System.out.print("Enter an item to add: ");
                     String newItem = sc.nextLine();
                     toDoList.add(newItem);
                     break;
+
                 case "3":
                     if (toDoList.isEmpty()) {
                         System.out.println("Your to-do list is empty. Nothing to delete.");
@@ -47,9 +55,10 @@ public class ToDoApp {
                         System.out.println("Invalid input. Please enter a number.");
                     }
                     break;
+
                 case "4":
                     running = false;
-                    System.out.println("Goodbye!");
+                    System.out.println("Closing your to-do list...");
                     break;
                 default:
                     System.out.println("Invalid choice.");
