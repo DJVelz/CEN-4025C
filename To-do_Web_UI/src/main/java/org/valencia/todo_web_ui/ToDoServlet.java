@@ -4,32 +4,55 @@ import entity.Item;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import jakarta.persistence.*;
+
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/todo")
+@WebServlet(urlPatterns = {"/todo", "/add", "/delete"})
 public class ToDoServlet extends HttpServlet {
     private Actions actions;
 
     @Override
     public void init() {
-        actions = new Actions();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+        actions = new Actions(emf);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String path = request.getServletPath();
+
+        if ("/delete".equals(path)) {
+            String idParam = request.getParameter("id");
+            if (idParam != null) {
+                int id = Integer.parseInt(idParam);
+                actions.deleteItem(id);
+            }
+            response.sendRedirect("todo");
+            return;
+        }
+
+        // Default: show list
         List<Item> items = actions.getAllItems();
-        req.setAttribute("items", items);
-        req.getRequestDispatcher("list.jsp").forward(req, resp);
+        request.setAttribute("items", items);
+        request.getRequestDispatcher("list.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String text = req.getParameter("text");
-        actions.addItem(text);
-        resp.sendRedirect("todo");
+        String path = request.getServletPath();
+
+        if ("/add".equals(path)) {
+            String text = request.getParameter("text");
+            if (text != null && !text.trim().isEmpty()) {
+                actions.addItem(text.trim());
+            }
+        }
+
+        response.sendRedirect("todo");
     }
 }
-
