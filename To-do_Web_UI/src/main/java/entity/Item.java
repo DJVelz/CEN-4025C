@@ -1,19 +1,22 @@
 package entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "item", schema = "mydb")
+@Table(name = "item")
 public class Item {
     @Id
-    @Column(name = "ID", nullable = false)
+    @GeneratedValue
     private Integer id;
 
     @Column(name = "Description", nullable = false, length = 45)
     private String description;
+
+    public Item() {}
+
+    public Item(String description) {
+        this.description = description;
+    }
 
     public Integer getId() {
         return id;
