@@ -1,10 +1,26 @@
 package com.velez.app.rest.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(unique=true)
     private String firstName;
+
+    @Column(unique=true)
     private String lastName;
+
+    @Column(unique=true)
     private String email;
+
+    @Column(unique=true)
     private String password;
 
     public User(int id, String firstName, String lastName, String email, String password) {
