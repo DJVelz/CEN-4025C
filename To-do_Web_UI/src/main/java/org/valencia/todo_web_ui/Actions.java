@@ -31,6 +31,7 @@ public class Actions {
         }
     }
 
+    /* Safe method
     public void deleteItem(int id) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -43,5 +44,18 @@ public class Actions {
         } finally {
             em.close();
         }
+    }*/
+
+    public void deleteItem(int id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            String jpql = "DELETE FROM Item i WHERE i.id = " + id;
+            em.createQuery(jpql).executeUpdate();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
+
 }
